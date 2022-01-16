@@ -34,13 +34,13 @@ services:
     ports:
       - 5432:5432
     environment:
-      POSTGRES_DB: dev_craftcms
-      POSTGRES_USER: craftcms
-      POSTGRES_PASSWORD: SecretPassword
+      POSTGRES_DB: ${DB_DATABASE}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - db_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready"]
+      test: ["CMD", "pg_isready", "-U", "${DB_USER}", "-d", "${DB_DATABASE}"]
       interval: 5s
       retries: 3
 
